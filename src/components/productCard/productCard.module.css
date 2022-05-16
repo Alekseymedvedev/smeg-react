@@ -5,3 +5,9 @@
     background-color: #f3f3f3;
     object-fit: contain;
 }
+.btnGroup{
+    max-width: 150px;
+}
+.input{
+    text-align: center;
+}

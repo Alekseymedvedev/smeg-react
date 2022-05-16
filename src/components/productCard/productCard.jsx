@@ -7,31 +7,38 @@ import classes from "./productCard.module.css";
 import {Button, Card, Input, Slider} from "antd";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addToCardAction, addToCardReduser} from "../../store/addToCardReduser";
+import {addToCardAction, isCountAction} from "../../store/addToCardReduser";
 import ButtonGroup from "antd/es/button/button-group";
 import {MinusOutlined, PlusOutlined,} from '@ant-design/icons'
 
 const ProductCard = (props) => {
     const dispatch = useDispatch()
     const addProducts = useSelector(state => state.addToCardReduser.addProducts)
+    const count = useSelector(state => state.addToCardReduser.addProducts.title)
+console.log(count);
     const [addProductCard, setAddProductCard]= useState({title:"",price:""})
+    const [isCount, setSetIsCount]= useState(false)
 
     const addToCard=(e)=>{
         e.stopPropagation()
         const producDate = {
-            title :props.categoryTitle,
+            title :props.title,
             price:props.price,
-            img:props.img
+            img:props.img,
+            count: 1
         }
         dispatch(addToCardAction(producDate))
         setAddProductCard(producDate)
+        setSetIsCount(true)
         localStorage.setItem("producDate", JSON.stringify(addProducts))
-
-        console.log(addProductCard)
-        console.log(producDate)
-        console.log(addProducts)
+        console.log(producDate);
     }
 
+    
+    const countPlus = ()=>{
+        dispatch(isCountAction(count))
+        console.log(addProducts.title);
+    }
     return (
 
         <div className="site-card-border-less-wrapper">
@@ -46,24 +53,32 @@ const ProductCard = (props) => {
                     title={props.title}
                 />
                 <Price price={props.price} discont={props.discont}/>
-                <Button
+                {
+                    !isCount 
+                    ?
+                    <Button 
                     onClick={addToCard}
                     type="primary"
                 >
                     В корзину
                 </Button>
-                <ButtonGroup>
+                    :
+                    <ButtonGroup className={classes.btnGroup}>
                     <Button >
                         <MinusOutlined />
                     </Button>
-                    <Input
-                        value="1"
+                    <Input 
+                        className={classes.input}
+                        value={addProducts.count}
                         maxLength={25}
                     />
-                    <Button >
+                    <Button onClick={countPlus}>
                         <PlusOutlined />
                     </Button>
                 </ButtonGroup>
+                }
+              
+                
             </Card>
 
         </div>

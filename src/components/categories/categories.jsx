@@ -2,6 +2,7 @@ import React from 'react';
 import Category from "./category/category";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import classes from "./categories.module.css"
 
 const Categories = (props) => {
     const [category, setCategory] = useState([
@@ -22,7 +23,7 @@ const Categories = (props) => {
             <div className="container">
                 <div className="categories__slider-wrap">
                     <div className="js-categories-slider">
-                        <ul className=" categories__items-list">
+                        <ul className={classes.inner}>
                             {
                                 category.map((cat) =>
                                     <Category

@@ -2,12 +2,23 @@ import React from 'react';
 import classes from "./header.module.css";
 import logo from './../logo.svg'
 import {Link} from "react-router-dom";
+import {Button} from "antd";
+
 const Header = () => {
     return (
-        <header className='header js-header'>
+        <header className={classes.header}>
             <div className="container">
-                <img src={logo} alt=""/>
-                <Link to="card" className="card-type-and-title">Корзина</Link>
+                <div className={classes.inner}>
+
+                
+            <img src={logo} alt=""/>
+
+            <Link to="card" className="card-type-and-title">
+                <Button>
+                    Корзина
+                </Button>
+            </Link>
+            </div>
             </div>
         </header>
     );

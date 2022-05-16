@@ -1,43 +1,45 @@
 import React, {useState} from 'react';
 import {useEffect} from "react";
-import axios from "axios";
-import {baseUrl, productUrl} from "../../URL/UPL";
-import {Badge} from "antd";
+import classes from "./card.module.css";
+import ButtonGroup from "antd/es/button/button-group";
+import {MinusOutlined, PlusOutlined,} from '@ant-design/icons'
+import {Button, Input} from "antd";
 
 const Card = () => {
     const [productData, setProductData] = useState([])
-    const [productDataNumber, setProductDataNumber] = useState(0)
     useEffect(() => {
-        get()
+        getProduct()
 
     }, [])
-    const get = () => {
+    const getProduct = () => {
         const loc = localStorage.getItem("producDate")
         const local = JSON.parse(loc)
-        console.log(local)
-
         setProductData(local)
     }
-    const [state, setState] = useState({
-        currentStep: 0,
-        modalVisible: false,
-        badgeCount: 5,
-        showBadge: true,
-    });
+
     return (
         <div className="container">
-            Корзина
-
+            <h1>Корзина</h1>
             {
                 productData.map(product=>
-                   <div>
-
-                       <Badge dot={state.showBadge}>
-                           <a href="#" className="head-example" />
-                       </Badge>
-                       <div>{product.title}</div>
-                       <div>{product.price}</div>
-                       <img src={product.img} alt=""/>
+                   <div className={classes.cart}>
+                       <img className={classes.img} src={product.img} alt=""/>
+                       <div className={classes.title}>{product.title}</div>
+                       
+                       <ButtonGroup className={classes.btnGroup}>
+                    <Button >
+                        <MinusOutlined />
+                    </Button>
+                    <Input className={classes.input}
+                        value="1"
+                        maxLength={25}
+                    />
+                    <Button >
+                        <PlusOutlined />
+                    </Button>
+                </ButtonGroup>
+                <div className={classes.price}>{product.price}</div>
+                       <div className={classes.delete}>удалить</div>
                    </div>
                 )
             }
