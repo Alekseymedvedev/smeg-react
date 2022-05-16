@@ -1,0 +1,14 @@
+.category{
+    display: block;
+    margin-bottom: 4px;
+    color: #7b7c7f;
+    font-size: 13px;
+    line-height: 16px;
+}
+.title{
+    margin-bottom: 24px;
+    display: block;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000;
+}
