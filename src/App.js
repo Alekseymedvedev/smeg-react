@@ -1,11 +1,11 @@
 import 'antd/dist/antd.css'
 import './App.css';
-import Header from "./header/Header";
+import Header from "./components/header/Header";
 import {BrowserRouter, Routes, Route,} from 'react-router-dom';
 import {routes} from "./Routes/Routes";
 import React from "react";
 import {Layout, Slider} from "antd";
-import Demo from "./header/Header";
+import Demo from "./components/header/Header";
 import {Footer} from "antd/es/layout/layout";
 function App() {
     return (
