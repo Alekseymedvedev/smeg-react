@@ -15,4 +15,4 @@ export const addToCardReduser = (state = defaultState, action) => {
     }
 }
 export const addToCardAction = (payload) => ({type: ADD_TO_CARD, payload})
-export const isCountAction = (payload) => ({type: ADD_TO_COUNT, payload})
+export const countAction = (payload) => ({type: ADD_TO_COUNT, payload})

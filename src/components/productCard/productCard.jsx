@@ -7,17 +7,17 @@ import classes from "./productCard.module.css";
 import {Button, Card, Input, Slider} from "antd";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addToCardAction, isCountAction} from "../../store/addToCardReduser";
+import {addToCardAction, countAction} from "../../store/addToCardReduser";
 import ButtonGroup from "antd/es/button/button-group";
 import {MinusOutlined, PlusOutlined,} from '@ant-design/icons'
 
 const ProductCard = (props) => {
     const dispatch = useDispatch()
     const addProducts = useSelector(state => state.addToCardReduser.addProducts)
-    const count = useSelector(state => state.addToCardReduser.addProducts.title)
-console.log(count);
-    const [addProductCard, setAddProductCard]= useState({title:"",price:""})
+    // const count = useSelector(state => state.addToCardReduser.addProducts.title)
+    const [addProductCard, setAddProductCard]= useState([{}])
     const [isCount, setSetIsCount]= useState(false)
+    const [count, setCount]= useState(1)
 
     const addToCard=(e)=>{
         e.stopPropagation()
@@ -25,19 +25,23 @@ console.log(count);
             title :props.title,
             price:props.price,
             img:props.img,
-            count: 1
+            count: count
         }
         dispatch(addToCardAction(producDate))
-        setAddProductCard(producDate)
         setSetIsCount(true)
         localStorage.setItem("producDate", JSON.stringify(addProducts))
-        console.log(producDate);
     }
 
     
     const countPlus = ()=>{
-        dispatch(isCountAction(count))
-        console.log(addProducts.title);
+        // dispatch(isCountAction(count))
+        setCount(count+1)
+        dispatch(countAction(Number(count)))
+        console.log(addProducts);
+    }
+    const countMinus = ()=>{
+        // dispatch(isCountAction(count))
+        if(count>0)setCount(count-1)
     }
     return (
 
@@ -64,12 +68,12 @@ console.log(count);
                 </Button>
                     :
                     <ButtonGroup className={classes.btnGroup}>
-                    <Button >
+                    <Button onClick={countMinus}>
                         <MinusOutlined />
                     </Button>
                     <Input 
                         className={classes.input}
-                        value={addProducts.count}
+                        value={count}
                         maxLength={25}
                     />
                     <Button onClick={countPlus}>

@@ -39,7 +39,7 @@ const Card = () => {
                     </Button>
                 </ButtonGroup>
                 <div className={classes.price}>{product.price}</div>
-                       <div className={classes.delete}>удалить</div>
+                <Button type="primary">Удалить</Button>
                    </div>
                 )
             }
