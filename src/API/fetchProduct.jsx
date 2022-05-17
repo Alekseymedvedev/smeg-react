@@ -6,5 +6,6 @@ export const fetchProduct = () => {
     return async dispatch => {
         const response = await axios.get(baseUrl + productUrl)
         dispatch(fetchProductAction(response.data))
+        console.log(response.data);
     }
 }

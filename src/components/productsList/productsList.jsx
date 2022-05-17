@@ -16,16 +16,17 @@ const ProductsList = () => {
     const dispatch = useDispatch()
     const fetchProducts = useSelector(state => state.productReduser.product)
     const addProducts = useSelector(state => state.addToCardReduser.addProducts)
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState({})
 
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
     useEffect(() => {
-        // dispatch(fetchProduct())
-        return async () => {
-            const response = await axios.get(baseUrl + productUrl)
-            setProducts(response.data)
-        }
+        dispatch(fetchProduct())
+        // return async () => {
+        //     const response = await axios.get(baseUrl + productUrl)
+        //     setProducts(response.data)
+        // }
+        console.log(fetchProducts);
     }, [])
     // useMemo(() => {
     //     setProducts(fetchProducts)
@@ -55,9 +56,12 @@ const ProductsList = () => {
                     defaultValue={[15, 20000]}/>
 
             <div className={classes.inner}>
-                {
 
-                    products.map((prod) =>
+                {
+                    fetchProducts.length > 0 
+                    ?
+                    
+                    fetchProducts.map((prod) =>
                         <ProductCard
                             key={prod.title}
                             category={prod.category}
@@ -70,6 +74,7 @@ const ProductsList = () => {
 
                         />
                     )
+                    :""
 
                 }
             </div>
