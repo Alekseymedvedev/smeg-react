@@ -14,7 +14,7 @@ const AddProducts = (props) => {
     const [priceDiscount, setPriceDiscount] = useState('')
     const [stock, setStock] = useState('')
     const [form] = Form.useForm()
-    console.log(link);
+    
     const addProducts = async () => {
 
         try {
@@ -31,7 +31,6 @@ const AddProducts = (props) => {
             localStorage.setItem("token", '')
         }
     }
-    console.log(props.isModalProductVisible);
     return (
         <>
             <Button type="primary" onClick={() => {

@@ -14,52 +14,39 @@ const ProductsList = () => {
     const dispatch = useDispatch()
     const fetchProducts = useSelector(state => state.productReduser.product)
     const addProducts = useSelector(state => state.addToCardReduser.addProducts)
-    const [products, setProducts] = useState([{category: 'holodilniki', link: '', price: '148 690', priceDiscount: '148 69'}])
+    const [products, setProducts] = useState([])
 
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
-    // useEffect(() => {
-    //     dispatch(fetchProduct())
-    //     // return async () => {
-    //     //     const response = await axios.get(baseUrl + productUrl)
-    //     //     setProducts(response.data)
-    //     // }
-    //     console.log(fetchProducts);
-    // }, [])
+    useEffect(() => {
+        // dispatch(fetchProduct())
+        return async () => {
+            const response = await axios.get(baseUrl + productUrl)
+            const arr =[]
+            Object.values(response.data).forEach(val=>{
+           arr.push({val})})
+          setProducts(arr)
+        }
+    }, [])
 
-    const filters = () => {
-        // dispatch(fetchProductAction({products, minPrice, maxPrice}))
-        const filterProduct = fetchProducts.filter(
-            product =>
-                product.price > minPrice
-                &&
-                product.price < maxPrice
-        )
+    // const filters = () => {
+    //     // dispatch(fetchProductAction({products, minPrice, maxPrice}))
+    //     const filterProduct = fetchProducts.filter(
+    //         product =>
+    //             product.price > minPrice
+    //             &&
+    //             product.price < maxPrice
+    //     )
 
-        setProducts(filterProduct)
-    }
+    //     setProducts(filterProduct)
+    // }
     const add = async () => {
         const response = await axios.get(baseUrl + productUrl)
-        setProducts(response.data)
-        const aaa = response.data
-        // aaa.forEach((item)=>{
-        //     console.log(item)
-        // })
-
-        // Object.keys(aaa).map(function(key, index) {
-        //     aaa[key] *= 2;
-        // });
-        // console.log(aaa)
-        // for (const [key, value] of Object.entries(aaa)) {
-        //     // console.log(`${key}: ${value}`);
-        //     for (const [key, val] of Object.entries(value.category)) {
-        //         console.log(`${key}: ${val}`);
-        //     }
-        //
-        // }
-        Object.values(aaa).forEach(val=>{
-            console.log(val.category)
-        })
+            
+        const arr =[]
+          Object.values(response.data).forEach(val=>{
+         arr.push({val})})
+        setProducts(arr)
     }
     return (
         <>
@@ -77,19 +64,22 @@ const ProductsList = () => {
             <div className={classes.inner}>
 
                 {
-                    // products.map((prod) =>
-                    //     <ProductCard
-                    //         key={prod.title}
-                    //         category={prod.category}
-                    //         categoryTitle={prod.categoryTitle}
-                    //         img={prod.img}
-                    //         stock={prod.stoks}
-                    //         title={prod.title}
-                    //         price={prod.price}
-                    //         discont={prod.discont}
-                    //
-                    //     />
-                    // )
+                    products.map((prod) => <ProductCard
+                            key={prod.val.title}
+                            category={prod.val.category}
+                            categoryTitle={prod.val.categoryTitle}
+                            img={prod.val.link}
+                            stock={prod.val.stock}
+                            title={prod.val.title}
+                            price={prod.val.price}
+                            discont={prod.val.priceDiscount}
+                    
+                        />
+                        // console.log(prod.val.category);
+                   
+                 
+                    
+                    )
 
                 }
             </div>

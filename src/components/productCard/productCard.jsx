@@ -18,7 +18,7 @@ const ProductCard = (props) => {
     const [addProductCard, setAddProductCard]= useState([{}])
     const [isCount, setSetIsCount]= useState(false)
     const [count, setCount]= useState(1)
-
+console.log(props);
     const addToCard=(e)=>{
         e.stopPropagation()
         const producDate = {
