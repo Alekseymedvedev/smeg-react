@@ -41,10 +41,25 @@ const ProductsList = () => {
     const add = async () => {
         const response = await axios.get(baseUrl + productUrl)
         setProducts(response.data)
-        const aaa = JSON.stringify(response.data)
+        const aaa = response.data
+        // aaa.forEach((item)=>{
+        //     console.log(item)
+        // })
 
-        console.log(JSON.parse(aaa))
-
+        // Object.keys(aaa).map(function(key, index) {
+        //     aaa[key] *= 2;
+        // });
+        // console.log(aaa)
+        // for (const [key, value] of Object.entries(aaa)) {
+        //     // console.log(`${key}: ${value}`);
+        //     for (const [key, val] of Object.entries(value.category)) {
+        //         console.log(`${key}: ${val}`);
+        //     }
+        //
+        // }
+        Object.values(aaa).forEach(val=>{
+            console.log(val.category)
+        })
     }
     return (
         <>
