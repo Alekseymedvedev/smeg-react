@@ -18,9 +18,10 @@ const ProductCard = (props) => {
     const [addProductCard, setAddProductCard]= useState([{}])
     const [isCount, setSetIsCount]= useState(false)
     const [count, setCount]= useState(1)
-console.log(props);
+    
     const addToCard=(e)=>{
         e.stopPropagation()
+        e.preventDefault()
         const producDate = {
             title :props.title,
             price:props.price,
@@ -37,7 +38,6 @@ console.log(props);
         // dispatch(isCountAction(count))
         setCount(count+1)
         dispatch(countAction(Number(count)))
-        console.log(addProducts);
     }
     const countMinus = ()=>{
         // dispatch(isCountAction(count))

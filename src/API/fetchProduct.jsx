@@ -5,7 +5,9 @@ import {baseUrl, productUrl} from "../URL/UPL";
 export const fetchProduct = () => {
     return async dispatch => {
         const response = await axios.get(baseUrl + productUrl)
-        dispatch(fetchProductAction(response.data))
-        console.log(response.data);
+        
+        Object.values(response.data).forEach(val=>{
+            dispatch(fetchProductAction(val))
+        })
     }
 }

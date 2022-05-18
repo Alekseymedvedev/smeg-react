@@ -19,42 +19,36 @@ const ProductsList = () => {
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
     useEffect(() => {
-        // dispatch(fetchProduct())
-        return async () => {
-            const response = await axios.get(baseUrl + productUrl)
-            const arr =[]
-            Object.values(response.data).forEach(val=>{
-           arr.push({val})})
-          setProducts(arr)
-        }
+        dispatch(fetchProduct())
+        // return async () => {
+        //     const response = await axios.get(baseUrl + productUrl)
+            // const arr =[]
+            // Object.values(fetchProducts).forEach(val=>{
+            //     arr.push({val})
+            // })
+            //     setProducts(arr)
+            // }
     }, [])
 
-    // const filters = () => {
-    //     // dispatch(fetchProductAction({products, minPrice, maxPrice}))
-    //     const filterProduct = fetchProducts.filter(
-    //         product =>
-    //             product.price > minPrice
-    //             &&
-    //             product.price < maxPrice
-    //     )
+    const filters = () => {
+        // dispatch(fetchProductAction({products, minPrice, maxPrice}))
+        const filterProduct = fetchProducts.filter(
+            product =>
+                product.price > minPrice
+                &&
+                product.price < maxPrice
+        )
 
-    //     setProducts(filterProduct)
-    // }
-    const add = async () => {
-        const response = await axios.get(baseUrl + productUrl)
-            
-        const arr =[]
-          Object.values(response.data).forEach(val=>{
-         arr.push({val})})
-        setProducts(arr)
+        setProducts(filterProduct)
+        console.log(fetchProducts);
     }
+
     return (
         <>
-            <button onClick={()=>{add()}}>add</button>
             <Slider onChange={(val) => {
                 setMinPrice(val[0])
                 setMaxPrice(val[1])
-                // filters()
+                filters()
             }}
                     max={100000}
                     min={15}
@@ -64,22 +58,23 @@ const ProductsList = () => {
             <div className={classes.inner}>
 
                 {
-                    products.map((prod) => <ProductCard
-                            key={prod.val.title}
-                            category={prod.val.category}
-                            categoryTitle={prod.val.categoryTitle}
-                            img={prod.val.link}
-                            stock={prod.val.stock}
-                            title={prod.val.title}
-                            price={prod.val.price}
-                            discont={prod.val.priceDiscount}
+                    // fetchProducts.lenght>0  ?
+                    fetchProducts.map((prod,index) => {
+                       return <ProductCard
+                            key={prod.title+index}
+                            category={prod.category}
+                            categoryTitle={prod.categoryTitle}
+                            img={prod.link}
+                            stock={prod.stock}
+                            title={prod.title}
+                            price={prod.price}
+                            discont={prod.priceDiscount}
                     
                         />
-                        // console.log(prod.val.category);
-                   
-                 
-                    
+                        console.log(prod);
+                    }
                     )
+                    // :""
 
                 }
             </div>
