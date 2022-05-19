@@ -7,6 +7,7 @@ import classes from "./productsList.module.css"
 import {Slider} from "antd";
 import axios from "axios";
 import {baseUrl, productUrl} from "../../URL/UPL";
+import {fetchProductAction} from "../../store/fetchProductsReduser";
 
 const ProductsList = () => {
 
@@ -34,13 +35,13 @@ const ProductsList = () => {
         // dispatch(fetchProductAction({products, minPrice, maxPrice}))
         const filterProduct = fetchProducts.filter(
             product =>
-                product.price > minPrice
+                Number(product.price) > Number(minPrice)
                 &&
-                product.price < maxPrice
+                Number(product.price) < Number(maxPrice)
         )
 
-        setProducts(filterProduct)
-        console.log(fetchProducts);
+        dispatch(fetchProductAction(filterProduct))
+        console.log(filterProduct);
     }
 
     return (
@@ -50,7 +51,7 @@ const ProductsList = () => {
                 setMaxPrice(val[1])
                 filters()
             }}
-                    max={100000}
+                    max={1000000}
                     min={15}
                     range
                     defaultValue={[15, 20000]}/>
@@ -58,7 +59,7 @@ const ProductsList = () => {
             <div className={classes.inner}>
 
                 {
-                    // fetchProducts.lenght>0  ?
+
                     fetchProducts.map((prod,index) => {
                        return <ProductCard
                             key={prod.title+index}
@@ -71,11 +72,8 @@ const ProductsList = () => {
                             discont={prod.priceDiscount}
                     
                         />
-                        console.log(prod);
                     }
                     )
-                    // :""
-
                 }
             </div>
         </>

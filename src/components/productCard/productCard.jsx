@@ -33,7 +33,8 @@ const ProductCard = (props) => {
         localStorage.setItem("producDate", JSON.stringify(addProducts))
     }
 
-    
+    console.log(Number(props.price));
+
     const countPlus = ()=>{
         // dispatch(isCountAction(count))
         setCount(count+1)
